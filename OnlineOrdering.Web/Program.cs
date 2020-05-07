@@ -18,9 +18,19 @@ namespace OnlineOrdering.Web
 
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
+				.ConfigureAppConfiguration(ProvisionConfiguration)
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>();
 				});
+
+		private static void ProvisionConfiguration(HostBuilderContext ctx, IConfigurationBuilder builder)
+		{
+			builder.Sources.Clear();
+
+			builder.AddJsonFile("appsettings.json", false, true)
+				.AddEnvironmentVariables();
+				
+		}
 	}
 }
