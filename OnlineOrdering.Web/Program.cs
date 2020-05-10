@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OnlineOrdering.Data.DbContexts;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace OnlineOrdering.Web
 {
@@ -13,7 +15,20 @@ namespace OnlineOrdering.Web
 	{
 		public static void Main(string[] args)
 		{
-			CreateHostBuilder(args).Build().Run();
+			var host = CreateHostBuilder(args).Build();
+
+			RunSeeding(host);
+			
+			host.Run();
+		}
+
+		private static void RunSeeding(IHost host)
+		{
+			var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+
+			using var scope = scopeFactory.CreateScope();
+			var seeder = scope.ServiceProvider.GetService<OnlineOrderingSeeder>();
+			seeder.SeedAsync().Wait();
 		}
 
 		public static IHostBuilder CreateHostBuilder(string[] args) =>

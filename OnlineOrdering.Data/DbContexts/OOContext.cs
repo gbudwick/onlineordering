@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OnlineOrdering.Data.Models;
 
 namespace OnlineOrdering.Data.DbContexts
 {
-    public class OOContext : DbContext
+    public class OOContext : IdentityDbContext<OOUser>
     {
 	    public OOContext(DbContextOptions<OOContext> options) : base(options)
-	    {
-		    
-	    }
+	    { }
+
         public DbSet<Person> People { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+	        base.OnModelCreating(builder);
+
+	        //OOUser user = _userManager;
+        }
     }
 }
