@@ -24,5 +24,10 @@ namespace OnlineOrdering.Data.Repositories
 		    await _context.SaveChangesAsync();
 		    return model;
 	    }
+
+	    public async Task<Restaurant> GetRestaruantByExternalIdAsync(string id)
+	    {
+		    return _context.Restaurants.FirstOrDefault(e => e.ExternalId == id);
+	    }
     }
 }

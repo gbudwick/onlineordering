@@ -6,5 +6,7 @@ namespace OnlineOrdering.Data.Interfaces
     public interface IRestaurantRepository
     {
 	    Task<Restaurant> SaveAsync(Restaurant model);
+
+	    Task<Restaurant> GetRestaruantByExternalIdAsync(string id);
     }
 }

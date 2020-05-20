@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using OnlineOrdering.Data.Interfaces;
 using OnlineOrdering.Data.Models;
@@ -10,26 +11,28 @@ namespace OnlineOrdering.Tests.RestaurantTests
 {
     public class CreateRestaurantTests
     {
+	    #region Repository
+
 	    [Fact]
 	    public void Restaurant_Has_Default_Values()
 	    {
 		    var restaurant = new CreateRestaurantDTO();
 
-			Assert.Equal(5, restaurant.DeliveryRadius);
-			Assert.Equal("America/New York", restaurant.TimeZone);
-			Assert.Equal(90, restaurant.MinutesInAdvanceAllowDelivery);
-			Assert.Equal(90, restaurant.MinutesInAdvanceAllowPickUp);
-			Assert.Equal(0, restaurant.Latitude);
-			Assert.Equal(string.Empty, restaurant.Name);
-			Assert.Equal(string.Empty, restaurant.Email);
-			Assert.Equal(string.Empty, restaurant.PhoneNumber);
-			Assert.Equal(string.Empty, restaurant.Address1);
-			Assert.Equal(string.Empty, restaurant.Address2);
+		    Assert.Equal(5, restaurant.DeliveryRadius);
+		    Assert.Equal("America/New York", restaurant.TimeZone);
+		    Assert.Equal(90, restaurant.MinutesInAdvanceAllowDelivery);
+		    Assert.Equal(90, restaurant.MinutesInAdvanceAllowPickUp);
+		    Assert.Equal(0, restaurant.Latitude);
+		    Assert.Equal(string.Empty, restaurant.Name);
+		    Assert.Equal(string.Empty, restaurant.Email);
+		    Assert.Equal(string.Empty, restaurant.PhoneNumber);
+		    Assert.Equal(string.Empty, restaurant.Address1);
+		    Assert.Equal(string.Empty, restaurant.Address2);
 	    }
 
 	    
 
-		[Fact]
+	    [Fact]
 	    public void Can_Save_Restaurant()
 	    {
 		    var context = TestingSetup.GetContext();
@@ -40,11 +43,37 @@ namespace OnlineOrdering.Tests.RestaurantTests
 			    .ContinueWith(innerTask =>
 			    {
 				    var result = innerTask.Result;
-					Assert.IsType<Restaurant>(result);
+				    Assert.IsType<Restaurant>(result);
 			    });
 
-			Assert.Single(context.Restaurants);
+		    Assert.Single(context.Restaurants);
 	    }
+
+	    [Fact]
+	    public void Can_Get_Restuarant_By_ExternalId()
+	    {
+		    var context = TestingSetup.GetContext();
+		    var repo = new RestaurantRepository(context);
+			    
+			var restaurant = new Restaurant()
+			{
+				Name = "New Restaurant"
+			};
+
+			context.Restaurants.Add(restaurant);
+			context.SaveChanges();
+
+			var existingRestaurant = context.Restaurants.First();
+
+			Task task = repo.GetRestaruantByExternalIdAsync(existingRestaurant.ExternalId)
+				.ContinueWith(innerTask =>
+				{
+					var result = innerTask.Result;
+					Assert.Equal("New Restaurant", result.Name);
+				});
+	    }
+
+	    #endregion
 
 		#region Services
 
