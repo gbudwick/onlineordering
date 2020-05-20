@@ -8,6 +8,7 @@ namespace OnlineOrdeering.DTOs
 {
     public class RestaurantDTO
     {
+	    public string ExternalId { get; set; }
 		public string Name { get; set; } // Default empty string
 		public string Email { get; set; } // Default empty string
 		public string PhoneNumber { get; set; } // Default empty string

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineOrdering.Data.DbContexts;
+using OnlineOrdering.Data.Interfaces;
 using OnlineOrdering.Data.Models;
 
 namespace OnlineOrdering.Data.Repositories
 {
-    public class RestaurantRepository
+    public class RestaurantRepository : IRestaurantRepository
     {
 	    private readonly OOContext _context;
 
@@ -22,8 +23,6 @@ namespace OnlineOrdering.Data.Repositories
 		    _context.Restaurants.Add(model);
 		    await _context.SaveChangesAsync();
 		    return model;
-
-
 	    }
     }
 }

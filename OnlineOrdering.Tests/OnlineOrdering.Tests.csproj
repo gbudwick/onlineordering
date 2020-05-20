@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineOrdeering.DTOs\OnlineOrdering.DTOs.csproj" />
+    <ProjectReference Include="..\OnlineOrdering.Data\OnlineOrdering.Data.csproj" />
+    <ProjectReference Include="..\OnlineOrdering.Services\OnlineOrdering.Services.csproj" />
     <ProjectReference Include="..\OnlineOrdering.Web\OnlineOrdering.Web.csproj" />
   </ItemGroup>
 

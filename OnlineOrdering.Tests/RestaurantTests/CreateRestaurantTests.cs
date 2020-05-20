@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using OnlineOrdering.Data.Interfaces;
 using OnlineOrdering.Data.Models;
 using OnlineOrdering.Data.Repositories;
 using OnlineOrdering.DTOs.Restaurants;
+using OnlineOrdering.Services.Services;
 using Xunit;
 namespace OnlineOrdering.Tests.RestaurantTests
 {
@@ -43,5 +45,27 @@ namespace OnlineOrdering.Tests.RestaurantTests
 
 			Assert.Single(context.Restaurants);
 	    }
-    }
+
+		#region Services
+
+		[Fact]
+		public void Svc_Can_Save_CreateRestaurantDTO()
+		{
+			var restaurant = new CreateRestaurantDTO();
+			var context = TestingSetup.GetContext();
+			IRestaurantRepository repo = new RestaurantRepository(context);
+			var svc = new RestaurantService(repo);
+
+			Task task = svc.SaveRestaurantAsync(restaurant)
+				.ContinueWith(innerTask =>
+				{
+					var result = innerTask.Result;
+					Assert.Equal("America/New York", result.TimeZone);
+				});
+
+			Assert.Single(context.Restaurants);
+		}
+
+		#endregion	
+	}
 }
