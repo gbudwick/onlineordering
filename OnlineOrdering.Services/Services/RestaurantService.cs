@@ -40,5 +40,11 @@ namespace OnlineOrdering.Services.Services
 	        var restaurant = await _restaurantRepository.SaveAsync(restaurantToSave);
 	        return _mapper.Map<RestaurantDTO>(restaurant);
         }
-    }
+
+        public async Task<RestaurantDTO> GetRestaurantByIdAsync(string externalId)
+        {
+	        var restaurant = await _restaurantRepository.GetRestaruantByExternalIdAsync(externalId);
+	        return _mapper.Map<RestaurantDTO>(restaurant);
+        }
+	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using OnlineOrdeering.DTOs;
 using OnlineOrdering.Data.Interfaces;
 using OnlineOrdering.Data.Models;
 using OnlineOrdering.Data.Repositories;
@@ -93,6 +94,32 @@ namespace OnlineOrdering.Tests.RestaurantTests
 				});
 
 			Assert.Single(context.Restaurants);
+		}
+
+		[Fact]
+		public void Can_Get_RestaurantDTO()
+		{
+			var context = TestingSetup.GetContext();
+			IRestaurantRepository repo = new RestaurantRepository(context);
+
+			var restaurant = new Restaurant()
+			{
+				Name = "New Restaurant"
+			};
+
+			context.Restaurants.Add(restaurant);
+			context.SaveChanges();
+
+			var svc = new RestaurantService(repo);
+
+			Task task = svc.GetRestaurantByIdAsync(restaurant.ExternalId)
+				.ContinueWith(innerTask =>
+				{
+					var result = innerTask.Result;
+					Assert.IsType<RestaurantDTO>(result);
+					Assert.Equal("America/New York", result.TimeZone);
+					Assert.Equal("New Restaurant", result.Name);
+				});
 		}
 
 		#endregion	
