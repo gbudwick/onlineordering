@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace OnlineOrdering.Data.Models
+namespace OnlineOrdeering.DTOs
 {
-	public class Restaurant : BaseEntity
-	{
-		public Restaurant()
-		{
-			ExternalId = Guid.NewGuid().ToString();
-		}
-
+    public class RestaurantDTO
+    {
 		public string Name { get; set; } // Default empty string
 		public string Email { get; set; } // Default empty string
 		public string PhoneNumber { get; set; } // Default empty string
@@ -22,10 +20,14 @@ namespace OnlineOrdering.Data.Models
 		public decimal PickUpMinimum { get; set; } // Default 0
 		public int DaysInAdvanceAllowPickUp { get; set; } // Default 0
 		public int MinutesInAdvanceAllowPickUp { get; set; } // Default 90
-		public Address Address { get; set; }
-		public IEnumerable<Category> Categories { get; set; }
-		//public IEnumerable<DeliveryFeeTaxRate> DeliveryFeeTaxRates { get; set; }
-		//public IEnumerable<RestaurantDeliveryTimeSlot> DeliveryTimeSlots { get; set; }
-		//public IEnumerable<RestaurantPickUpTimeSlot> PickUpTimeSlots { get; set; }
+		public string Address1 { get; set; } // Default empty string
+		public string Address2 { get; set; } // Default empty string
+		public string Locality { get; set; } // Default empty string
+		public string Region { get; set; } // Default empty string
+		public string PostalCode { get; set; } // Default empty string
+		public string Country { get; set; } // Default empty string
+		public decimal Latitude { get; set; } // Default 0
+		public decimal Longitude { get; set; } // Default 0
+
 	}
 }

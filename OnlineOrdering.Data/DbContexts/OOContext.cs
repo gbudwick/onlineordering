@@ -9,7 +9,11 @@ namespace OnlineOrdering.Data.DbContexts
 	    public OOContext(DbContextOptions<OOContext> options) : base(options)
 	    { }
 
-        public DbSet<Person> People { get; set; }
+	    public DbSet<Restaurant> Restaurants { get; set; }
+
+	    public DbSet<Address> Addresses { get; set; }
+
+	    public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
