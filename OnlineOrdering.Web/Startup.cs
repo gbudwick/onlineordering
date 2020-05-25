@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using OnlineOrdering.Data.DbContexts;
 using OnlineOrdering.Data.Models;
+using OnlineOrdering.Services.Interfaces;
 
 namespace OnlineOrdering.Web
 {
@@ -58,6 +59,8 @@ namespace OnlineOrdering.Web
 				});
 
 			services.AddTransient<OnlineOrderingSeeder>();
+
+			services.AddTransient<IRestaurantService, IRestaurantService>();
 
 			services.AddControllers();
 		}

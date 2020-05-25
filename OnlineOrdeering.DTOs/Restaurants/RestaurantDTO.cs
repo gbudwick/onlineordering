@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineOrdeering.DTOs
+namespace OnlineOrdering.DTOs.Restaurants
 {
     public class RestaurantDTO
     {

@@ -1,18 +1,16 @@
-﻿using OnlineOrdering.Data.Interfaces;
+﻿using System.Runtime.InteropServices;
+using OnlineOrdering.Data.Interfaces;
 using OnlineOrdering.DTOs.Restaurants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using OnlineOrdeering.DTOs;
+using OnlineOrdering.DTOs;
 using OnlineOrdering.Data.Models;
+using OnlineOrdering.Services.Interfaces;
 
 namespace OnlineOrdering.Services.Services
 {
-    public class RestaurantService
-    {
+    public class RestaurantService : IRestaurantService
+	{
 	    private readonly IRestaurantRepository _restaurantRepository;
 	    private IMapper _mapper;
 
@@ -44,6 +42,13 @@ namespace OnlineOrdering.Services.Services
         public async Task<RestaurantDTO> GetRestaurantByIdAsync(string externalId)
         {
 	        var restaurant = await _restaurantRepository.GetRestaruantByExternalIdAsync(externalId);
+	        return _mapper.Map<RestaurantDTO>(restaurant);
+        }
+
+        public async Task<RestaurantDTO> CreateNewRestaurant(CreateRestaurantDTO createRestaurant)
+        {
+	        var restaurant = _mapper.Map<Restaurant>(createRestaurant);
+	        await _restaurantRepository.AddNewRestaurant(restaurant);
 	        return _mapper.Map<RestaurantDTO>(restaurant);
         }
 	}

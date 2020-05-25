@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using OnlineOrdeering.DTOs;
+﻿using OnlineOrdering.DTOs;
 using OnlineOrdering.Data.Interfaces;
 using OnlineOrdering.Data.Models;
 using OnlineOrdering.Data.Repositories;
 using OnlineOrdering.DTOs.Restaurants;
 using OnlineOrdering.Services.Services;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 namespace OnlineOrdering.Tests.RestaurantTests
 {
@@ -83,8 +82,7 @@ namespace OnlineOrdering.Tests.RestaurantTests
 		{
 			var restaurant = new CreateRestaurantDTO();
 			var context = TestingSetup.GetContext();
-			IRestaurantRepository repo = new RestaurantRepository(context);
-			var svc = new RestaurantService(repo);
+			var svc = new RestaurantService(new RestaurantRepository(context));
 
 			Task task = svc.SaveRestaurantAsync(restaurant)
 				.ContinueWith(innerTask =>
@@ -104,6 +102,7 @@ namespace OnlineOrdering.Tests.RestaurantTests
 
 			var restaurant = new Restaurant()
 			{
+				ExternalId = "31e045af-cc46-4e28-a783-71d456d86400",
 				Name = "New Restaurant"
 			};
 
@@ -112,7 +111,7 @@ namespace OnlineOrdering.Tests.RestaurantTests
 
 			var svc = new RestaurantService(repo);
 
-			Task task = svc.GetRestaurantByIdAsync(restaurant.ExternalId)
+			Task task = svc.GetRestaurantByIdAsync("31e045af-cc46-4e28-a783-71d456d86400")
 				.ContinueWith(innerTask =>
 				{
 					var result = innerTask.Result;

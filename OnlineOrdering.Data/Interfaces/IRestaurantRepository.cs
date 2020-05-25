@@ -8,5 +8,7 @@ namespace OnlineOrdering.Data.Interfaces
 	    Task<Restaurant> SaveAsync(Restaurant model);
 
 	    Task<Restaurant> GetRestaruantByExternalIdAsync(string id);
+
+	    Task<Restaurant> AddNewRestaurant(Restaurant restaurant);
     }
 }
