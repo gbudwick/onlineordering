@@ -1,9 +1,7 @@
-﻿using System.Runtime.InteropServices;
-using OnlineOrdering.Data.Interfaces;
+﻿using OnlineOrdering.Data.Interfaces;
 using OnlineOrdering.DTOs.Restaurants;
 using System.Threading.Tasks;
 using AutoMapper;
-using OnlineOrdering.DTOs;
 using OnlineOrdering.Data.Models;
 using OnlineOrdering.Services.Interfaces;
 

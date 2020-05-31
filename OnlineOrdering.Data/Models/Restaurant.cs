@@ -23,7 +23,11 @@ namespace OnlineOrdering.Data.Models
 		public int DaysInAdvanceAllowPickUp { get; set; } // Default 0
 		public int MinutesInAdvanceAllowPickUp { get; set; } // Default 90
 		public Address Address { get; set; }
+		public string UserId { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
+
+		public OOUser User { get; set; }
+
 		//public IEnumerable<DeliveryFeeTaxRate> DeliveryFeeTaxRates { get; set; }
 		//public IEnumerable<RestaurantDeliveryTimeSlot> DeliveryTimeSlots { get; set; }
 		//public IEnumerable<RestaurantPickUpTimeSlot> PickUpTimeSlots { get; set; }
